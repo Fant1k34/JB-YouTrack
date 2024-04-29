@@ -5,8 +5,8 @@ import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.ResponseBody
+import org.springframework.core.io.ClassPathResource
 
 
 @Controller
@@ -19,13 +19,14 @@ class StaticController {
     @GetMapping("/bundle.js")
     @ResponseBody
     fun getImageDynamicType(): ResponseEntity<InputStreamResource> {
-        val contentType: MediaType = MediaType.TEXT_PLAIN
-        val data = javaClass.getResourceAsStream(
-            "/src/main/resources/templates/bundle.js"
-        )
+        val resource = ClassPathResource("templates/bundle.js")
+        val data = resource.inputStream
+
+        println(resource)
+        println(data)
 
         return ResponseEntity.ok()
-            .contentType(contentType)
-            .body(data?.let { InputStreamResource(it) })
+            .contentType(MediaType.TEXT_PLAIN)
+            .body(InputStreamResource(data))
     }
 }
