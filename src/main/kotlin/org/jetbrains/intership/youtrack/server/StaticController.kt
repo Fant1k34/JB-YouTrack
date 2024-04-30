@@ -7,6 +7,8 @@ import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.ResponseBody
 import org.springframework.core.io.ClassPathResource
+import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.RestController
 
 
 @Controller
@@ -28,5 +30,13 @@ class StaticController {
         return ResponseEntity.ok()
             .contentType(MediaType.TEXT_PLAIN)
             .body(InputStreamResource(data))
+    }
+}
+
+@RestController
+class FilterReposController {
+    @PostMapping("/filter-repos-api")
+    fun filterReposApi(): String {
+        return "[1, 2, 3]"
     }
 }
