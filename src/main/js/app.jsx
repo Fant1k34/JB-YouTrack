@@ -1,10 +1,8 @@
-import React from "react"
-import {QueryPanel} from "./query-panel";
+import React from "react";
+import { QueryPanel } from "./components/query-panel";
 
-// import "./index.module.css"
+import "./index.module.css";
 
 export const App = () => {
-    return <div>
-        <QueryPanel />
-    </div>
-}
+    return <QueryPanel />;
+};

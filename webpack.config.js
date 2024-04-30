@@ -1,20 +1,25 @@
-const path = require('path');
+const path = require("path");
 
 module.exports = {
-    entry: './src/main/js/index.js',
-    mode: 'development',
-    devtool: 'inline-source-map',
+    entry: "./src/main/js/index.js",
+    mode: "development",
+    devtool: "inline-source-map",
     module: {
         rules: [
             {
-                test: path.join(__dirname, '.'),
-                use: [{
-                    loader: 'babel-loader',
-                    options: {
-                        presets: ["@babel/preset-env", "@babel/preset-react"]
-                    }
-                }],
-                exclude: /node_modules/
+                test: path.join(__dirname, "."),
+                use: [
+                    {
+                        loader: "babel-loader",
+                        options: {
+                            presets: [
+                                "@babel/preset-env",
+                                "@babel/preset-react",
+                            ],
+                        },
+                    },
+                ],
+                exclude: /node_modules/,
             },
             {
                 test: /\.css$/i,
@@ -23,10 +28,10 @@ module.exports = {
         ],
     },
     resolve: {
-        extensions: ['.js', '.jsx'],
+        extensions: [".js", ".jsx"],
     },
     output: {
-        filename: 'main/resources/templates/bundle.js',
-        path: path.resolve(__dirname, 'src'),
+        filename: "main/resources/templates/bundle.js",
+        path: path.resolve(__dirname, "src"),
     },
 };

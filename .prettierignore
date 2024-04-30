@@ -1,0 +1,8 @@
+# Ignore artifacts:
+.gradle
+.idea
+build
+gradle
+node_modules
+src/main/kotlin
+src/main/resources
