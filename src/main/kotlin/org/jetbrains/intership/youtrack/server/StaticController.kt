@@ -1,5 +1,6 @@
 package org.jetbrains.intership.youtrack.server
 
+import com.google.gson.Gson
 import org.springframework.core.io.InputStreamResource
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
@@ -37,6 +38,20 @@ class StaticController {
 class FilterReposController {
     @PostMapping("/filter-repos-api")
     fun filterReposApi(): String {
-        return "[{\"name\": \"Repo name 1\", \"url\": \"www.google.com\"}, {\"name\": \"Repo name 2\", \"url\": \"www.google.com\"}, {\"name\": \"Repo name 3\", \"url\": \"www.google.com\"}, {\"name\": \"Repo name 1\", \"url\": \"www.google.com\"}, {\"name\": \"Repo name 2\", \"url\": \"www.google.com\"}, {\"name\": \"Repo name 3\", \"url\": \"www.google.com\"}, {\"name\": \"Repo name 1\", \"url\": \"www.google.com\"}, {\"name\": \"Repo name 2\", \"url\": \"www.google.com\"}, {\"name\": \"Repo name 3\", \"url\": \"www.google.com\"}, {\"name\": \"Repo name 1\", \"url\": \"www.google.com\"}, {\"name\": \"Repo name 2\", \"url\": \"www.google.com\"}, {\"name\": \"Repo name 3\", \"url\": \"www.google.com\"}, {\"name\": \"Repo name 1\", \"url\": \"www.google.com\"}, {\"name\": \"Repo name 2\", \"url\": \"www.google.com\"}, {\"name\": \"Repo name 3\", \"url\": \"www.google.com\"}, {\"name\": \"Repo name 1\", \"url\": \"www.google.com\"}, {\"name\": \"Repo name 2\", \"url\": \"www.google.com\"}, {\"name\": \"Repo name 3\", \"url\": \"www.google.com\"},{\"name\": \"Repo name 1\", \"url\": \"www.google.com\"}, {\"name\": \"Repo name 2\", \"url\": \"www.google.com\"}, {\"name\": \"Repo name 3\", \"url\": \"www.google.com\"}, {\"name\": \"Repo name 1\", \"url\": \"www.google.com\"}, {\"name\": \"Repo name 2\", \"url\": \"www.google.com\"}, {\"name\": \"Repo name 3\", \"url\": \"www.google.com\"}, {\"name\": \"Repo name 1\", \"url\": \"www.google.com\"}, {\"name\": \"Repo name 2\", \"url\": \"www.google.com\"}, {\"name\": \"Repo name 3\", \"url\": \"www.google.com\"}, {\"name\": \"Repo name 1\", \"url\": \"www.google.com\"}, {\"name\": \"Repo name 2\", \"url\": \"www.google.com\"}, {\"name\": \"Repo name 3\", \"url\": \"www.google.com\"}, {\"name\": \"Repo name 1\", \"url\": \"www.google.com\"}, {\"name\": \"Repo name 2\", \"url\": \"www.google.com\"}, {\"name\": \"Repo name 3\", \"url\": \"www.google.com\"}]"
+        val organization = "stepancar-web-programming"
+        val key = "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"
+        val word = "- 15 Ноября"
+
+        val filteredRepos = mutableListOf<Repository>()
+
+        getOrganizationReposList(organization, key).forEach {
+            val content = getRepoDescription(organization, it.name, key)
+
+            if (content.contains(word)) {
+                filteredRepos.add(it)
+            }
+        }
+
+        return Gson().toJson(filteredRepos)
     }
 }
