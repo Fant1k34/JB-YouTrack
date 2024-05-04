@@ -19,7 +19,9 @@ export const QueryPanel = () => {
     const [token, setToken] = useState("");
     const [searchFile, setSearchFile] = useState("README.md");
     const [keyword, setKeyword] = useState("Hello");
+
     const [status, setStatus] = useState(Status.START);
+    const [errorMessage, setErrorMessage] = useState("")
     const [repos, setRepos] = useState([]);
 
     const handleChange = (method) => (e) => {
@@ -39,11 +41,17 @@ export const QueryPanel = () => {
         getFilterReposFetcher(data)
             .then((res) => res.json())
             .then((res) => {
-                setStatus(Status.SUCCESS);
-                setRepos(res);
+                if (res["status"] !== "OK") {
+                    setStatus(Status.ERROR);
+                    setErrorMessage(res["message"]);
+                } else {
+                    setStatus(Status.SUCCESS);
+                    setRepos(res["data"]);
+                }
             })
             .catch(() => {
                 setStatus(Status.ERROR);
+                setErrorMessage("There are some problems with searching repos");
             });
     };
 
@@ -60,20 +68,22 @@ export const QueryPanel = () => {
                     onChange={handleChange(setLink)}
                     style={inputStyle}
                 />
-                <Input
-                    placeholder="GitHub access token"
+                <Input.Password
+                  placeholder="GitHub access token"
                     value={token}
                     onChange={handleChange(setToken)}
                     style={inputStyle}
                 />
                 <Input
-                    placeholder="Search file"
+                    addonBefore="Search file"
+                    placeholder="src/main/js/app.jsx"
                     value={searchFile}
                     onChange={handleChange(setSearchFile)}
                     style={inputStyle}
                 />
                 <Input
-                    placeholder="Keyword"
+                    addonBefore="Keyword"
+                    placeholder="Search by this sentence"
                     value={keyword}
                     onChange={handleChange(setKeyword)}
                     style={inputStyle}
@@ -99,7 +109,7 @@ export const QueryPanel = () => {
                 {status === Status.ERROR && (
                     <Result
                         status="warning"
-                        title="There are some problems with searching repos"
+                        title={errorMessage}
                         extra={
                             <Button
                                 type="primary"

@@ -15,4 +15,10 @@ export const getFilterReposFetcher = (data) =>
             "Content-Type": "application/json",
         },
         body: JSON.stringify(data),
+    }).then((res) => {
+        if (!res.ok) {
+          throw Error("Method returned not OK")
+        }
+
+        return res
     });

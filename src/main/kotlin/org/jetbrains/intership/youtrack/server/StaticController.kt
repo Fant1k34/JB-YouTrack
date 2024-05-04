@@ -5,12 +5,11 @@ import org.springframework.core.io.InputStreamResource
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Controller
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.ResponseBody
 import org.springframework.core.io.ClassPathResource
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 
+
+data class Configuration(val token: String, val keyword: String, val link: String, val searchFile: String)
 
 @Controller
 class StaticController {
@@ -37,21 +36,49 @@ class StaticController {
 @RestController
 class FilterReposController {
     @PostMapping("/filter-repos-api")
-    fun filterReposApi(): String {
-        val organization = "stepancar-web-programming"
-        val key = "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"
-        val word = "- 15 Ноября"
-
+    fun filterReposApi(@RequestBody config: Configuration): String {
+        val organization = config.link
+        val key = config.token
+        val word = config.keyword
+        val file = config.searchFile
         val filteredRepos = mutableListOf<Repository>()
 
-        getOrganizationReposList(organization, key).forEach {
-            val content = getRepoDescription(organization, it.name, key)
+        if (word == "") return Gson().toJson(
+            mapOf(
+                "status" to "ERROR",
+                "message" to "Keyword could not be empty"
+            )
+        )
 
-            if (content.contains(word)) {
+        if (file == "") return Gson().toJson(
+            mapOf(
+                "status" to "ERROR",
+                "message" to "File must be defined"
+            )
+        )
+
+        val repos = getOrganizationReposList(organization, key)
+            ?: return Gson().toJson(
+                mapOf(
+                    "status" to "ERROR",
+                    "message" to "Organization within this access token does not exist"
+                )
+            )
+
+        repos.forEach {
+            val content = getRepoGetFileContent(organization, it.name, file, key)
+
+            if (content?.contains(word) == true) {
                 filteredRepos.add(it)
+                println(content)
             }
         }
 
-        return Gson().toJson(filteredRepos)
+        return Gson().toJson(
+            mapOf(
+                "status" to "OK",
+                "data" to filteredRepos
+            )
+        )
     }
 }
