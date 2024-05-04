@@ -4,6 +4,15 @@
 The application allows you to search in your repositories
 The search takes place across all repositories within a certain organization. In each of the repositories, the specified file (which is searched) and its contents are analyzed. If the contents of the file contain the desired substring, then this repository will be displayed in the found
 
+![image_2024-05-04_04-35-48](https://github.com/Fant1k34/JB-YouTrack/assets/45245696/87aad31a-03b7-43f9-aad0-513cd834f1d4)
+
+![image_2024-05-04_04-35-06](https://github.com/Fant1k34/JB-YouTrack/assets/45245696/17471542-5628-45d9-a35c-9892d44aa794)
+
+![image_2024-05-04_04-34-38](https://github.com/Fant1k34/JB-YouTrack/assets/45245696/acad2d4b-ca84-4596-863c-585939537973)
+
+![image_2024-05-04_04-37-19](https://github.com/Fant1k34/JB-YouTrack/assets/45245696/f75ed220-d895-477d-a39a-386d3cfaaa08)
+
+
 ### Arguments
 1. Organization name
 2. Github API key (different users have different access rights to projects, so specifying this field will allow you to view all repositories on your behalf. Please also make sure that the API key is generated correctly and has access to view the list of all repositories in the organization, as well as the repositories themselves and the files inside them)
