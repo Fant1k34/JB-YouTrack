@@ -40,7 +40,7 @@ class GitHubService {
             .build()
 
         val response = client.send(request, HttpResponse.BodyHandlers.ofString())
-        if (response.statusCode() != 200) throw GitHubException("Repo is not found")
+        if (response.statusCode() != 200) throw GitHubException("Organization within this access token does not exist")
 
         return getRepositoriesFromResponse(response)
     }
