@@ -1,8 +1,18 @@
 # Search through your repo Application
 
 ## Description
-The application allows you to search in your repositories
-The search takes place across all repositories within a certain organization. In each of the repositories, the specified file (which is searched) and its contents are analyzed. If the contents of the file contain the desired substring, then this repository will be displayed in the found
+The application allows you to search in your Github repositories.
+
+The search takes place across all repositories within a certain organization. In each of the repositories, the specified file (which is searched) and its contents are analyzed. If the contents of the file contain the desired substring, then this repository will be displayed in the found.
+
+![image_2024-05-04_04-35-48](https://github.com/Fant1k34/JB-YouTrack/assets/45245696/87aad31a-03b7-43f9-aad0-513cd834f1d4)
+
+![image_2024-05-04_04-35-06](https://github.com/Fant1k34/JB-YouTrack/assets/45245696/17471542-5628-45d9-a35c-9892d44aa794)
+
+![image_2024-05-04_04-34-38](https://github.com/Fant1k34/JB-YouTrack/assets/45245696/acad2d4b-ca84-4596-863c-585939537973)
+
+![image_2024-05-04_04-37-19](https://github.com/Fant1k34/JB-YouTrack/assets/45245696/f75ed220-d895-477d-a39a-386d3cfaaa08)
+
 
 ### Arguments
 1. Organization name
@@ -37,7 +47,7 @@ The application consists of two parts: frontend, which generates js code, and se
 - The server processes the following urls:
   - GET /  returns html (src/main/resources/templates/index.html)
   - GET /bundle.js  returns js (src/main/resources/templates/bundle.js)
-  - POST /filter-repos-api  to get a list of repositories in the organization and filter
+  - POST /filter-repos-api  to get a list of repositories in the organization and filter (use Github API under the hood)
     - Accepts arguments in the request body in JSON format
     - token (GITHUB API TOKEN/KEY)
     - keyword
