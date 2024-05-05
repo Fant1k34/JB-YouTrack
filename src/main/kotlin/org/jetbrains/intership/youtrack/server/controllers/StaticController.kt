@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller
 import org.springframework.core.io.ClassPathResource
 import org.springframework.web.bind.annotation.*
 
+
 @Controller
 class StaticController {
     @GetMapping("/")
@@ -14,14 +15,11 @@ class StaticController {
         return "index"
     }
 
-    @GetMapping("/bundle.js")
     @ResponseBody
+    @GetMapping("/bundle.js")
     fun getImageDynamicType(): ResponseEntity<InputStreamResource> {
         val resource = ClassPathResource("templates/bundle.js")
         val data = resource.inputStream
-
-        println(resource)
-        println(data)
 
         return ResponseEntity.ok()
             .contentType(MediaType.TEXT_PLAIN)
